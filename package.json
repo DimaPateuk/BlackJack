@@ -12,7 +12,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "httpp-proxy": "^0.10.3",
     "robotjs": "^0.4.4"
   }
 }
