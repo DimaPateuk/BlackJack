@@ -22,8 +22,8 @@ Promise.all([onePromise, twoPromise])
 		let two = result[1];
 		net.train(
 			[
-				{input: one, output: {one:   1}},
-				{input: two, output: {two:   1}},
+				{ input: one, output: {one:   1} },
+				{ input: two, output: {two:   1} },
 			],
 			{
 				errorThresh: 0.00001,  // error threshold to reach before completion
