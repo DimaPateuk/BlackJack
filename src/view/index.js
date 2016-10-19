@@ -4,9 +4,9 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const windowOptions = {
 	transparent: true,
-	frame: true,
-	width: 1024,
-	height: 768,
+	frame: false,
+	width: 1000,
+	height: 1000,
 	x: 0,
 	y: 0
 }
