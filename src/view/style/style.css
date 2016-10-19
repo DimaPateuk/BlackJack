@@ -1,0 +1,14 @@
+body {
+	height: 668px;
+	width: 817px;
+	border: 10px solid black;
+}
+.table_cards, .my_cards {
+	position: relative;
+}
+
+.table_cards .card_1 {
+	height: 50px;
+	width: 50px;
+	border: 10px solid black;
+}
