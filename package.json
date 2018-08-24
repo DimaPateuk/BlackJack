@@ -4,7 +4,8 @@
   "description": "There is nothing interesting here",
   "main": "index.js",
   "scripts": {
-    "start": "electron ./src/view"
+    "start": "electron ./src/view",
+    "start-ui": "webpack-dev-server --config ./ui/webpack.config.js --env.dev-server --progress"
   },
   "repository": {
     "type": "git",
@@ -12,6 +13,8 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react": "^6.24.1",
     "brain": "^0.7.0",
     "electron": "^1.4.3",
     "gm": "^1.23.0",
@@ -24,18 +27,28 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.0",
+    "fs": "0.0.1-security",
     "get-image-colors": "^1.8.1",
     "get-image-pixels": "^1.0.1",
     "get-pixels": "^3.3.2",
-    "image-js": "^0.21.0",
-    "machine_learning": "^0.1.1",
-    "opencv4nodejs": "^4.7.2",
-    "pngjs2": "^2.0.0",
-    "webpack-dev-server": "^3.1.5",
-    "fs": "0.0.1-security",
     "hog-features": "0.0.2",
+    "image-js": "^0.21.0",
+    "immutable": "^3.8.2",
     "libsvm-js": "^0.2.1",
     "lodash.range": "^3.2.0",
-    "ml-kernel": "^2.3.4"
+    "machine_learning": "^0.1.1",
+    "ml-kernel": "^2.3.4",
+    "node-sass": "^4.9.3",
+    "opencv4nodejs": "^4.7.2",
+    "pngjs2": "^2.0.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-immutable": "^4.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
+    "webpack-dev-server": "^3.1.5"
   }
 }

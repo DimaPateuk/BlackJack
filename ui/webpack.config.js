@@ -23,17 +23,31 @@ module.exports = {
     hotOnly: true,
     openPage: 'index.html',
   },
+  resolve: {
+		extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
-        },
+          options: {
+            presets: ['env', 'react']
+          }
+        }
       },
-    ],
-	},
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
+        ]
+      }
+    ]
+  },
   plugins: [
 		new webpack.HotModuleReplacementPlugin(),
   ],
