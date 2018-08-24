@@ -24,6 +24,18 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
-    "webpack-dev-server": "^3.1.5"
+    "get-image-colors": "^1.8.1",
+    "get-image-pixels": "^1.0.1",
+    "get-pixels": "^3.3.2",
+    "image-js": "^0.21.0",
+    "machine_learning": "^0.1.1",
+    "opencv4nodejs": "^4.7.2",
+    "pngjs2": "^2.0.0",
+    "webpack-dev-server": "^3.1.5",
+    "fs": "0.0.1-security",
+    "hog-features": "0.0.2",
+    "libsvm-js": "^0.2.1",
+    "lodash.range": "^3.2.0",
+    "ml-kernel": "^2.3.4"
   }
 }
