@@ -13,7 +13,8 @@ function Boody ({ boxes }) {
   return (
     <section>
       {boxes.map((data) => {
-        return <Box key={data.get('id')} data={data} />
+        const id = data.get('id');
+        return <Box key={id} id={id} />
       })}
     </section>
   );

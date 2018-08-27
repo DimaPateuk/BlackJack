@@ -5,16 +5,20 @@ export function boxes (state) {
   return state.getIn(['box', 'boxes']);
 }
 
+export function boxById (state, { id }) {
+  return state.getIn(['box', 'boxes']).find((box) => box.get('id') === id);
+}
+
 export const createSpreadBoxProps = () => {
   const spreadBoxProps = createSelector(
-    [(state, props) => props],
-    ({ data }) => {
+    [boxById],
+    (box) => {
       return {
-        id: data.get('id'),
-        x: data.get('x'),
-        y: data.get('y'),
-        height: data.get('height'),
-        width: data.get('width'),
+        id: box.get('id'),
+        x: box.get('x'),
+        y: box.get('y'),
+        height: box.get('height'),
+        width: box.get('width'),
       };
     }
   );
