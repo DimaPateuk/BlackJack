@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux-immutable';
 
-import appReducer from './app/appReducer';
+import appReducer from 'ui/app/AppReducer';
+import boxReducer from 'ui/Box/BoxReducer';
 
 export default combineReducers({
-	appReducer,
+	app: appReducer,
+	box: boxReducer,
 });

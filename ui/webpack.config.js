@@ -24,6 +24,9 @@ module.exports = {
     openPage: 'index.html',
   },
   resolve: {
+    alias: {
+			ui: __dirname,
+		},
 		extensions: ['.js', '.jsx'],
   },
   module: {
