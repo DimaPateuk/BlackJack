@@ -21,7 +21,7 @@ const move = (moveActions, id, {
 }) => {
   const pontDiffX = startX - x;
   const pontDiffY = startY - y;
-  
+
   const func = (e) => moveActions(id, {
     x: e.x - pontDiffX,
     y: e.y - pontDiffY,
@@ -54,8 +54,6 @@ const changeSize = (changeSizeActions, id, {
 }
 
 function Box ({ height, width, x, y, id, updateBox, pontDiffX, pontDiffY }) {
-
-  console.log(pontDiffY, pontDiffX)
   return (
     <section className="box"
       style={{height, width, top: y, left: x}}
@@ -72,6 +70,7 @@ function Box ({ height, width, x, y, id, updateBox, pontDiffX, pontDiffY }) {
           document.removeEventListener('mousemove', func);
           document.removeEventListener('mouseup', removeListener);
         };
+
         document.addEventListener('mousemove', func);
         document.addEventListener('mouseup', removeListener);
 
@@ -81,7 +80,6 @@ function Box ({ height, width, x, y, id, updateBox, pontDiffX, pontDiffY }) {
         e.stopPropagation();
 
         const func = changeSize(updateBox, id, {
-
           height,
           width,
           startX: e.clientX,
@@ -93,6 +91,7 @@ function Box ({ height, width, x, y, id, updateBox, pontDiffX, pontDiffY }) {
           document.removeEventListener('mousemove', func);
           document.removeEventListener('mouseup', removeListener);
         };
+
         document.addEventListener('mousemove', func);
         document.addEventListener('mouseup', removeListener);
 

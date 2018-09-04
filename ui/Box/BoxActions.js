@@ -1,4 +1,3 @@
-
 let boxesIDs = 0;
 export function createBox () {
 	return {
