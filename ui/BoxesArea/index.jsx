@@ -9,17 +9,18 @@ import { createBox } from 'ui/Box/BoxActions'
 
 import Box from 'ui/Box'
 
-function Boody ({ boxes }) {
+function BoxesArea ({ boxes }) {
   return (
-    <section>
-      {boxes.map((data) => {
-        const id = data.get('id');
-        return <Box key={id} id={id} />
-      })}
+    <section className="boxesArea">
+      {boxes.reduce((res, item) => {
+        const id = item.get('id');
+        res.push(<Box key={id} id={id} />)
+        return res;
+      }, [])}
     </section>
   );
 }
 
 export default connect(createStructuredSelector({
   boxes,
-}))(Boody);
+}))(BoxesArea);

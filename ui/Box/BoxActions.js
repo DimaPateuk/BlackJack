@@ -21,3 +21,13 @@ export function removeBox (id) {
 		},
 	};
 }
+
+export function updateBox (id, data) {
+	return {
+		type: 'box-update',
+		payload: {
+			id,
+			...data
+		}
+	};
+}

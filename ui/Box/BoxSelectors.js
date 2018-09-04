@@ -6,7 +6,7 @@ export function boxes (state) {
 }
 
 export function boxById (state, { id }) {
-  return state.getIn(['box', 'boxes']).find((box) => box.get('id') === id);
+  return state.getIn(['box', 'boxes']).get(id);
 }
 
 export const createSpreadBoxProps = () => {

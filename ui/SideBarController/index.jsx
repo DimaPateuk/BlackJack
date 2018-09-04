@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 
 import { createBox } from 'ui/Box/BoxActions'
 
+import SideBarControllerStyle from './SideBarController.scss';
+
 function SideBarController ({ createBox }) {
   return (
-    <span>
+    <section className="sideBarController">
       <button onClick={createBox}>add box</button>
-    </span>
+    </section>
   );
 }
 
