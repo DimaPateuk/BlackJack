@@ -1,7 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const { app, BrowserWindow, ipcMain  } = require('electron');
-const screenCaptureToJimp = require('../screenUtils/screenCaptureToJimp');
+const PredictionService = require('./PredictionService');
+
 
 let mainWindow
 
@@ -28,20 +29,11 @@ function createWindow () {
 
   ipcMain.on('save-boxes-as-picture', (event, boxes) => {
     const [winX, winY] = mainWindow.getPosition();
-    screenCaptureToJimp().then((image) => {
-      const cordinates = Object.entries(boxes)
-        .map(([key,box]) => ({
-            ...box,
-            x: box.x + winX,
-            y: box.y + winY
-          })
-        );
 
-      cordinates.forEach(box => {
-        const {x,y, width, height, id} = box;
-        image.clone().crop(x,y, width, height).write(path.resolve(__dirname, `boxImages/${id}.png`));
-      })
+    PredictionService.init({
+      winX, winY, boxes
     });
+
   });
 
 }

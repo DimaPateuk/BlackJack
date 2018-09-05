@@ -1,10 +1,11 @@
-const path = require("path");
-const fs = require("fs");
-const hog = require("hog-features");
-const { default: Image } = require("image-js");
-const SVM = require("libsvm-js/asm");
-const Kernel = require("ml-kernel");
-const range = require("lodash.range");
+const path = require('path');
+const fs = require('fs');
+const hog = require('hog-features');
+// const Image = require('jimp');
+const { default: Image } = require('image-js');
+const SVM = require('libsvm-js/asm');
+const Kernel = require('ml-kernel');
+const range = require('lodash.range');
 
 let options = {
   type: SVM.SVM_TYPES.NU_SVC,
@@ -19,7 +20,7 @@ let options_hog = {
   blockSize: 2,
   blockStride: 1,
   bins: 6,
-  norm: "L2"
+  norm: 'L2'
 };
 
 let X_train = [];
@@ -33,13 +34,13 @@ let kernel;
 
 async function loadTrainingSet() {
   var lines = fs
-    .readFileSync(path.join(__dirname, "labels_train.csv"))
+    .readFileSync(path.join(__dirname, 'labels_train.csv'))
     .toString()
-    .split("\n");
+    .split('\n');
   for (var i = 0; i < lines.length; i++) {
-    var elements = lines[i].split(";");
+    var elements = lines[i].split(';');
     if (elements.length < 2) continue;
-    var file = path.join(__dirname, "/data/" + elements[0]);
+    var file = path.join(__dirname, '/data/' + elements[0]);
     // in the variable X, we will store the HOG of the pictures
     var image = await Image.load(file);
     image = await image.scale({ width: 100, height: 100 });
@@ -48,19 +49,19 @@ async function loadTrainingSet() {
     Y_train.push(elements[1]);
   }
 
-  kernel = new Kernel("polynomial", { degree: 3, scale: 1 / X_train.length });
+  kernel = new Kernel('polynomial', { degree: 3, scale: 1 / X_train.length });
   K_train = kernel.compute(X_train).addColumn(0, range(1, X_train.length + 1));
 }
 
 async function loadTestSet() {
   var lines = fs
-    .readFileSync(path.join(__dirname, "labels_test.csv"))
+    .readFileSync(path.join(__dirname, 'labels_test.csv'))
     .toString()
-    .split("\n");
+    .split('\n');
   for (var i = 0; i < lines.length; i++) {
-    var elements = lines[i].split(";");
+    var elements = lines[i].split(';');
     if (elements.length < 2) continue;
-    var file = path.join(__dirname, "/data/" + elements[0]);
+    var file = path.join(__dirname, '/data/' + elements[0]);
     // in the variable X, we will store the HOG of the pictures
     var image = await Image.load(file);
     image = await image.scale({ width: 100, height: 100 });
@@ -87,13 +88,6 @@ async function test(classifier) {
     parseFloat(testSetLength) *
     100;
   console.log(`Test Set Size = ${testSetLength} and accuracy ${accuracy}%`);
-  // var image = await Image.load(path.join(__dirname, "/data/2_0.png"));
-  // image = await image.scale({ width: 100, height: 100 });
-  // var descriptor = hog.extractHOG(image, options_hog);
-  // console.log(K_test[0]);
-  // console.log(kernel
-  //     .compute([descriptor, ...range(0, X_train.length - 1)], X_train)
-  //     .addColumn(0, range(1, X_test.length + 1))[0]);
 
 }
 
@@ -118,21 +112,27 @@ module.exports = async function createClassifier() {
   classifier.train(K_train, Y_train);
   test(classifier);
   fs.writeFileSync(
-    path.join(__dirname, "serialized.txt"),
+    path.join(__dirname, 'serialized.txt'),
     classifier.serializeModel()
   );
 
+  async function getDescriptor(pathToFile) {
+    var image = await Image.load(pathToFile);
+    image = await image.scale({ width: 100, height: 100 });
+
+    var descriptor = hog.extractHOG(image, options_hog);
+    return kernel
+        .compute([descriptor, ...range(0, X_train.length - 1)], X_train)
+        .addColumn(0, range(1, X_test.length + 1))[0];
+
+  }
+
   return {
-    getDescriptor: async function(pathToFile) {
-      var image = await Image.load(pathToFile);
-      image = await image.scale({ width: 100, height: 100 });
-
-      var descriptor = hog.extractHOG(image, options_hog);
-      return kernel
-          .compute([descriptor, ...range(0, X_train.length - 1)], X_train)
-          .addColumn(0, range(1, X_test.length + 1))[0];
-
-    },
-    classifier: classifier
+    getDescriptor: getDescriptor,
+    classifier: classifier,
+    predict: async (pathToFile) => {
+      // var descriptor = await getDescriptor(pathToFile);
+      // return classifier.predictOne(descriptor);
+    }
   };
 };

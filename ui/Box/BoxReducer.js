@@ -1,11 +1,12 @@
 import { fromJS } from 'immutable';
 
-const serializedBoxes = window.serializedBoxes;
+const serializedBoxes = window.serializedBoxes || {};
 
 let lastBoxId = Math.max(...Object.keys(serializedBoxes), 0);
 
 const initialState = fromJS({
   boxes: fromJS(serializedBoxes),
+  hideBoxes: false,
 });
 
 export default function (state = initialState, action) {
@@ -36,6 +37,15 @@ export default function (state = initialState, action) {
         return boxes.set(id, box);
       });
     }
+
+    case 'hide-boxes': {
+      return state.set('hideBoxes', true);
+    }
+
+    case 'show-boxes': {
+      return state.set('hideBoxes', false);
+    }
+
 
 		default: {
 			return state;

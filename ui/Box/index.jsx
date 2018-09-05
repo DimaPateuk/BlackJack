@@ -4,7 +4,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 import { createSpreadBoxProps } from 'ui/Box/BoxSelectors';
 
-import { updateBox, removeBox } from './BoxActions';
+import { updateBox, removeBox, cloneBox } from './BoxActions';
 
 import { move, changeSize } from './BoxUtils';
 
@@ -12,10 +12,10 @@ import BoxStyle from './Box.scss';
 
 let currentBoxId = null;
 
-function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDiffY }) {
+function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDiffY, cloneBox }) {
   return (
     <section className="box"
-      style={{height, width, top: y, left: x}}
+      style={{ height, width, top: y, left: x }}
       onMouseDown={(e) => {
         const func = move(updateBox, id, {
           height,
@@ -37,6 +37,7 @@ function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDi
     >
 
       <button className="box-remove-button" onClick={() => removeBox(id)}>remove "{id}"</button>
+      <button className="box-clone-button" onClick={() => cloneBox(id)}>clone "{id}"</button>
       <div className="box-size-controlle" onMouseDown={(e) => {
         e.stopPropagation();
 
@@ -61,4 +62,4 @@ function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDi
   );
 }
 
-export default connect(createSpreadBoxProps, { updateBox, removeBox })(({ spreadBoxProps, ...restProps }) => <Box {...restProps} {...spreadBoxProps} />);
+export default connect(createSpreadBoxProps, { updateBox, removeBox, cloneBox })(({ spreadBoxProps, ...restProps }) => <Box {...restProps} {...spreadBoxProps} />);

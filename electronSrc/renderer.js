@@ -8,8 +8,6 @@ try {
 
   window.serializedBoxes = serializedBoxes;
 
-
-
 } catch (w) {
   window.serializedBoxes = {};
 }

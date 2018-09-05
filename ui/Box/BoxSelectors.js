@@ -1,5 +1,8 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
+export function hideBoxes (state) {
+  return state.getIn(['box', 'hideBoxes']);
+}
 
 export function boxes (state) {
   return state.getIn(['box', 'boxes']);
