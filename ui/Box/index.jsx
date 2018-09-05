@@ -35,7 +35,8 @@ function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDi
 
       }}
     >
-      <button className="box-remove-button" onClick={() => removeBox(id)}>remove</button>
+
+      <button className="box-remove-button" onClick={() => removeBox(id)}>remove "{id}"</button>
       <div className="box-size-controlle" onMouseDown={(e) => {
         e.stopPropagation();
 

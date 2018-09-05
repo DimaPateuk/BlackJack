@@ -28,6 +28,7 @@
     "electron": "^2.0.8",
     "electron-connect": "^0.6.3",
     "electron-prebuilt": "^1.4.13",
+    "electron-rebuild": "^1.8.2",
     "electron-reload": "^1.2.5",
     "fs": "0.0.1-security",
     "get-image-colors": "^1.8.1",

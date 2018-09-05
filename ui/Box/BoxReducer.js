@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
 
     case 'box-create': {
       return state.update('boxes', (boxes) => {
-        const id = String(lastBoxId++);
+        const id = String(++lastBoxId);
         return boxes.set(id, fromJS({...action.payload, id}));
       });
     }

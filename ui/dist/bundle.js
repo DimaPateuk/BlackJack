@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "699340b97f07be2f07f4";
+/******/ 	var hotCurrentHash = "27680d1b8c6245f1c7fe";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -33117,7 +33117,7 @@ var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({
     case 'box-create':
       {
         return state.update('boxes', function (boxes) {
-          var id = String(lastBoxId++);
+          var id = String(++lastBoxId);
           return boxes.set(id, Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])(_extends({}, action.payload, { id: id })));
         });
       }
@@ -33333,7 +33333,9 @@ function Box(_ref) {
       { className: 'box-remove-button', onClick: function onClick() {
           return removeBox(id);
         } },
-      'remove'
+      'remove "',
+      id,
+      '"'
     ),
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('div', { className: 'box-size-controlle', onMouseDown: function onMouseDown(e) {
         e.stopPropagation();
@@ -33472,16 +33474,18 @@ if(true) {
 /*!**********************************************************!*\
   !*** ./ui/SideBarController/SideBarControllerActions.js ***!
   \**********************************************************/
-/*! exports provided: serializeBoxs */
+/*! exports provided: serializeBoxs, saveBoxesAsPicture */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serializeBoxs", function() { return serializeBoxs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveBoxesAsPicture", function() { return saveBoxesAsPicture; });
 /* harmony import */ var redux_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-actions */ "./node_modules/redux-actions/es/index.js");
 
 
 var serializeBoxs = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('serialize-boxes');
+var saveBoxesAsPicture = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('save-boxes-as-picture');
 
 /***/ }),
 
@@ -33511,7 +33515,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function SideBarController(_ref) {
   var createBox = _ref.createBox,
-      serializeBoxs = _ref.serializeBoxs;
+      serializeBoxs = _ref.serializeBoxs,
+      saveBoxesAsPicture = _ref.saveBoxesAsPicture;
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
     'section',
@@ -33525,6 +33530,11 @@ function SideBarController(_ref) {
       'button',
       { className: 'sideBarController-button', onClick: serializeBoxs },
       'serialize boxs'
+    ),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      'button',
+      { className: 'sideBarController-button', onClick: saveBoxesAsPicture },
+      'save boxes as picture'
     )
   );
 }
@@ -33533,7 +33543,8 @@ function SideBarController(_ref) {
   return {};
 }, {
   createBox: ui_Box_BoxActions__WEBPACK_IMPORTED_MODULE_2__["createBox"],
-  serializeBoxs: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_3__["serializeBoxs"]
+  serializeBoxs: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_3__["serializeBoxs"],
+  saveBoxesAsPicture: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_3__["saveBoxesAsPicture"]
 })(SideBarController));
 
 /***/ }),
@@ -33610,6 +33621,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ui/Box/BoxSelectors */ "./ui/Box/BoxSelectors.js");
 
 
+var ipcRenderer = window.ipcRenderer || {
+  send: function send() {}
+};
+
 /* harmony default export */ __webpack_exports__["default"] = (function (store) {
   return function (next) {
     return function (action) {
@@ -33618,7 +33633,14 @@ __webpack_require__.r(__webpack_exports__);
           {
             var state = store.getState();
 
-            window.ipcRenderer.send('serialize-boxes', Object(ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__["boxes"])(state).toJS());
+            ipcRenderer.send('serialize-boxes', Object(ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__["boxes"])(state).toJS());
+          }
+
+        case 'save-boxes-as-picture':
+          {
+            var _state = store.getState();
+
+            ipcRenderer.send('save-boxes-as-picture', Object(ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__["boxes"])(_state).toJS());
           }
 
         default:

@@ -24,6 +24,6 @@ var bundler = webpack(webpackConfig, (err, stats) => {
 
 gulp.task('default', function () {
   electron.start();
-  gulp.watch('electronSrc/**.*', electron.restart);
+  gulp.watch('electronSrc/**.js', electron.restart);
   gulp.watch('ui/**/**.*', () => bundler.run(electron.reload));
 });
