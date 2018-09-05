@@ -1,7 +1,11 @@
-import { fromJS, Map } from 'immutable';
+import { fromJS } from 'immutable';
+
+const serializedBoxes = window.serializedBoxes;
+
+let lastBoxId = Math.max(...Object.keys(serializedBoxes), 0);
 
 const initialState = fromJS({
-  boxes: Map(),
+  boxes: fromJS(serializedBoxes),
 });
 
 export default function (state = initialState, action) {
@@ -9,7 +13,14 @@ export default function (state = initialState, action) {
 
     case 'box-create': {
       return state.update('boxes', (boxes) => {
-        return boxes.set(action.payload.id, fromJS(action.payload));
+        const id = String(lastBoxId++);
+        return boxes.set(id, fromJS({...action.payload, id}));
+      });
+    }
+
+    case 'box-remove': {
+      return state.update('boxes', (boxes) => {
+        return boxes.remove(action.payload.id);
       });
     }
 
@@ -25,9 +36,6 @@ export default function (state = initialState, action) {
         return boxes.set(id, box);
       });
     }
-
-
-
 
 		default: {
 			return state;

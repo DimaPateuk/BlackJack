@@ -5,8 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: [
-    'webpack-dev-server/client?http://localhost:9000/',
-    'webpack/hot/dev-server',
+    // 'webpack-dev-server/client?http://0.0.0.0:9000/',
+    // 'webpack/hot/dev-server',
     path.join(__dirname, './index.js'),
   ],
   devtool: 'source-map',
@@ -19,7 +19,7 @@ module.exports = {
 		inline: false,
     port: 9000,
     contentBase: path.join(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '0.0.0.0:9000',
     open: true,
     hotOnly: true,
     openPage: 'index.html',

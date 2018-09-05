@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const { app, BrowserWindow, ipcMain  } = require('electron');
 
 // let {ipcRenderer} = require('electron');
@@ -12,7 +13,6 @@ function createWindow () {
     //transparent: true,
     //frame: false,
   });
-  // mainWindow.loadURL('http://localhost:9000/index.html');
   mainWindow.loadFile(path.resolve(__dirname, 'index.html'));
 
   mainWindow.webContents.openDevTools()
@@ -20,6 +20,12 @@ function createWindow () {
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
+
+
+  ipcMain.on('serialize-boxes', (event, arg) => {
+    fs.writeFile(path.resolve(__dirname, 'serializedBoxes.json'), JSON.stringify(arg));
+  });
+
 }
 
 app.on('ready', createWindow);
