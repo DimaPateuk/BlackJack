@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 const screenCaptureToJimp = require('../screenUtils/screenCaptureToJimp');
-const detector = require('../src/detector');
+const createClassifier = require('../src/detector');
+
+const detectorPromise = createClassifier();
 
 function createCordinates ({ winX, winY, boxes }) {
   return Object.entries(boxes)
@@ -9,7 +11,7 @@ function createCordinates ({ winX, winY, boxes }) {
       return Object.assign({}, box, {
         x: box.x + winX,
         y: box.y + winY,
-        path: path.resolve(__dirname, `boxImages/${box.id}.png`),
+        pathToFile: path.resolve(__dirname, `boxImages/${box.id}.png`),
       });
     });
 }
@@ -18,30 +20,27 @@ function saveImages (screen, cordinates) {
   const result = [];
 
   for (let i = 0; i < cordinates.length; i++) {
-    const { x, y, width, height, id, path } = cordinates[i];
+    const { x, y, width, height, id, pathToFile } = cordinates[i];
     const promise = screen
       .clone()
       .crop(x, y, width, height)
-      .writeAsync(path);
+      .writeAsync(pathToFile);
     result.push(promise);
   }
 
   return Promise.all(result);
 }
 
-function init ({ winX, winY, boxes }) {
-  screenCaptureToJimp().then((screen) => {
-    const cordinates = createCordinates({ winX, winY, boxes });
-    saveImages(screen, cordinates)
-      .then(() => {
-        cordinates.forEach(({ path }) => {
-          detector.predict(path)
-            // .then((prediction) => {
-            //   fs.writeFile(path.resolve(__dirname, path, '.prediction'), JSON.stringify(prediction));
-            // })
-        });
-      })
-  })
+async function init ({ winX, winY, boxes }) {
+  const screen = await screenCaptureToJimp()
+  const cordinates = createCordinates({ winX, winY, boxes });
+  await saveImages(screen, cordinates);
+  const detector = await detectorPromise;
+  for (let i = 0; i < cordinates.length; i++) {
+    const { pathToFile } = cordinates[i];
+    const prediction = await detector.predict(pathToFile)
+    fs.writeFile(path.resolve(__dirname, pathToFile + '.prediction'), JSON.stringify(prediction));
+  }
 }
 
 module.exports = { init: init };

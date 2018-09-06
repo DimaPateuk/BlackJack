@@ -4,6 +4,10 @@ export function hideBoxes (state) {
   return state.getIn(['box', 'hideBoxes']);
 }
 
+export function hideBoxesControls (state) {
+  return state.getIn(['box', 'hideBoxesControls']);
+}
+
 export function boxes (state) {
   return state.getIn(['box', 'boxes']);
 }
@@ -27,6 +31,7 @@ export const createSpreadBoxProps = () => {
   );
 
   return createStructuredSelector({
-    spreadBoxProps
+    spreadBoxProps,
+    hideBoxesControls
   })
 }

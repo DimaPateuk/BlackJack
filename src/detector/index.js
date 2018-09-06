@@ -131,8 +131,8 @@ module.exports = async function createClassifier() {
     getDescriptor: getDescriptor,
     classifier: classifier,
     predict: async (pathToFile) => {
-      // var descriptor = await getDescriptor(pathToFile);
-      // return classifier.predictOne(descriptor);
+      var descriptor = await getDescriptor(pathToFile);
+      return classifier.predictOne(descriptor);
     }
   };
 };

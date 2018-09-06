@@ -7,6 +7,7 @@ let lastBoxId = Math.max(...Object.keys(serializedBoxes), 0);
 const initialState = fromJS({
   boxes: fromJS(serializedBoxes),
   hideBoxes: false,
+  hideBoxesControls: true,
 });
 
 export default function (state = initialState, action) {
@@ -38,13 +39,13 @@ export default function (state = initialState, action) {
       });
     }
 
-    case 'hide-boxes': {
-      return state.set('hideBoxes', true);
+    case 'set-boxes-visibility': {
+      return state.set('hideBoxes', action.payload);
+    }
+    case 'set-boxes-controls-visibility': {
+      return state.set('hideBoxesControls', action.payload);
     }
 
-    case 'show-boxes': {
-      return state.set('hideBoxes', false);
-    }
 
 
 		default: {

@@ -7,6 +7,7 @@ const PredictionService = require('./PredictionService');
 let mainWindow
 
 function createWindow () {
+
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,

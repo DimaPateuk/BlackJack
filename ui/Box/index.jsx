@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 
@@ -12,7 +12,7 @@ import BoxStyle from './Box.scss';
 
 let currentBoxId = null;
 
-function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDiffY, cloneBox }) {
+function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDiffY, cloneBox, hideBoxesControls }) {
   return (
     <section className="box"
       style={{ height, width, top: y, left: x }}
@@ -35,9 +35,16 @@ function Box ({ height, width, x, y, id, updateBox, removeBox, pontDiffX, pontDi
 
       }}
     >
-
-      <button className="box-remove-button" onClick={() => removeBox(id)}>remove "{id}"</button>
-      <button className="box-clone-button" onClick={() => cloneBox(id)}>clone "{id}"</button>
+      {
+        !hideBoxesControls
+          ? (
+            <Fragment>
+              <button className="box-remove-button" onClick={() => removeBox(id)}>remove "{id}"</button>
+              <button className="box-clone-button" onClick={() => cloneBox(id)}>clone "{id}"</button>
+            </Fragment>
+          )
+          : null
+      }
       <div className="box-size-controlle" onMouseDown={(e) => {
         e.stopPropagation();
 

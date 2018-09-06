@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "e3f723843ae5221b0f70";
+/******/ 	var hotCurrentHash = "14e69d6bf2bcc2b313bd";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1013,7 +1013,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".box {\n  border: 1px solid black;\n  position: absolute; }\n\n.box-size-controlle {\n  position: absolute;\n  top: 100%;\n  right: 0;\n  width: 0;\n  height: 0;\n  border-top: 30px solid transparent;\n  border-right: 30px solid black;\n  transform: translateY(-100%); }\n\n.box-remove-button {\n  position: absolute;\n  top: 0;\n  right: 0; }\n\n.box-clone-button {\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translateY(100%); }\n", ""]);
+exports.push([module.i, ".box {\n  border: 1px solid black;\n  position: absolute; }\n\n.box-size-controlle {\n  position: absolute;\n  top: 100%;\n  right: 0;\n  width: 15%;\n  height: 15%;\n  background: black;\n  transform: translateY(-100%); }\n\n.box-remove-button {\n  position: absolute;\n  top: 0;\n  right: 0; }\n\n.box-clone-button {\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translateY(100%); }\n", ""]);
 
 // exports
 
@@ -42488,7 +42488,8 @@ var lastBoxId = Math.max.apply(Math, _toConsumableArray(Object.keys(serializedBo
 
 var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({
   boxes: Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])(serializedBoxes),
-  hideBoxes: false
+  hideBoxes: false,
+  hideBoxesControls: true
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -42527,14 +42528,13 @@ var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({
         });
       }
 
-    case 'hide-boxes':
+    case 'set-boxes-visibility':
       {
-        return state.set('hideBoxes', true);
+        return state.set('hideBoxes', action.payload);
       }
-
-    case 'show-boxes':
+    case 'set-boxes-controls-visibility':
       {
-        return state.set('hideBoxes', false);
+        return state.set('hideBoxesControls', action.payload);
       }
 
     default:
@@ -42550,12 +42550,13 @@ var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({
 /*!********************************!*\
   !*** ./ui/Box/BoxSelectors.js ***!
   \********************************/
-/*! exports provided: hideBoxes, boxes, boxById, createSpreadBoxProps */
+/*! exports provided: hideBoxes, hideBoxesControls, boxes, boxById, createSpreadBoxProps */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hideBoxes", function() { return hideBoxes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hideBoxesControls", function() { return hideBoxesControls; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "boxes", function() { return boxes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "boxById", function() { return boxById; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSpreadBoxProps", function() { return createSpreadBoxProps; });
@@ -42565,6 +42566,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function hideBoxes(state) {
   return state.getIn(['box', 'hideBoxes']);
+}
+
+function hideBoxesControls(state) {
+  return state.getIn(['box', 'hideBoxesControls']);
 }
 
 function boxes(state) {
@@ -42589,7 +42594,8 @@ var createSpreadBoxProps = function createSpreadBoxProps() {
   });
 
   return Object(reselect__WEBPACK_IMPORTED_MODULE_0__["createStructuredSelector"])({
-    spreadBoxProps: spreadBoxProps
+    spreadBoxProps: spreadBoxProps,
+    hideBoxesControls: hideBoxesControls
   });
 };
 
@@ -42703,7 +42709,8 @@ function Box(_ref) {
       removeBox = _ref.removeBox,
       pontDiffX = _ref.pontDiffX,
       pontDiffY = _ref.pontDiffY,
-      cloneBox = _ref.cloneBox;
+      cloneBox = _ref.cloneBox,
+      hideBoxesControls = _ref.hideBoxesControls;
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
     'section',
@@ -42727,24 +42734,28 @@ function Box(_ref) {
         document.addEventListener('mouseup', removeListener);
       }
     },
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-      'button',
-      { className: 'box-remove-button', onClick: function onClick() {
-          return removeBox(id);
-        } },
-      'remove "',
-      id,
-      '"'
-    ),
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-      'button',
-      { className: 'box-clone-button', onClick: function onClick() {
-          return cloneBox(id);
-        } },
-      'clone "',
-      id,
-      '"'
-    ),
+    !hideBoxesControls ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      react__WEBPACK_IMPORTED_MODULE_0__["Fragment"],
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        'button',
+        { className: 'box-remove-button', onClick: function onClick() {
+            return removeBox(id);
+          } },
+        'remove "',
+        id,
+        '"'
+      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        'button',
+        { className: 'box-clone-button', onClick: function onClick() {
+            return cloneBox(id);
+          } },
+        'clone "',
+        id,
+        '"'
+      )
+    ) : null,
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('div', { className: 'box-size-controlle', onMouseDown: function onMouseDown(e) {
         e.stopPropagation();
 
@@ -42881,20 +42892,39 @@ if(true) {
 /*!**********************************************************!*\
   !*** ./ui/SideBarController/SideBarControllerActions.js ***!
   \**********************************************************/
-/*! exports provided: hideBoxes, showBoxes, serializeBoxs, saveBoxesAsPicture */
+/*! exports provided: setBoxesVisibility, setBoxesControlsVisibility, hideBoxes, showBoxes, hideBoxesControl, showBoxesControl, serializeBoxs, saveBoxesAsPicture */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBoxesVisibility", function() { return setBoxesVisibility; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBoxesControlsVisibility", function() { return setBoxesControlsVisibility; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hideBoxes", function() { return hideBoxes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showBoxes", function() { return showBoxes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hideBoxesControl", function() { return hideBoxesControl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showBoxesControl", function() { return showBoxesControl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serializeBoxs", function() { return serializeBoxs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveBoxesAsPicture", function() { return saveBoxesAsPicture; });
 /* harmony import */ var redux_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-actions */ "./node_modules/redux-actions/es/index.js");
 
 
-var hideBoxes = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('hide-boxes');
-var showBoxes = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('show-boxes');
+var setBoxesVisibility = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('set-boxes-visibility');
+var setBoxesControlsVisibility = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('set-boxes-controls-visibility');
+
+var hideBoxes = function hideBoxes() {
+  return setBoxesVisibility(true);
+};
+var showBoxes = function showBoxes() {
+  return setBoxesVisibility(false);
+};
+
+var hideBoxesControl = function hideBoxesControl() {
+  return setBoxesControlsVisibility(true);
+};
+var showBoxesControl = function showBoxesControl() {
+  return setBoxesControlsVisibility(false);
+};
+
 var serializeBoxs = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('serialize-boxes');
 var saveBoxesAsPicture = Object(redux_actions__WEBPACK_IMPORTED_MODULE_0__["createAction"])('save-boxes-as-picture');
 
@@ -42935,7 +42965,10 @@ function SideBarController(_ref) {
       saveBoxesAsPicture = _ref.saveBoxesAsPicture,
       hideBoxes = _ref.hideBoxes,
       showBoxes = _ref.showBoxes,
-      hideBoxesIndicator = _ref.hideBoxesIndicator;
+      hideBoxesIndicator = _ref.hideBoxesIndicator,
+      hideBoxesControlsIndicator = _ref.hideBoxesControlsIndicator,
+      hideBoxesControl = _ref.hideBoxesControl,
+      showBoxesControl = _ref.showBoxesControl;
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
     'section',
@@ -42952,6 +42985,19 @@ function SideBarController(_ref) {
           return hideBoxes();
         } },
       'hide boxes'
+    ),
+    hideBoxesControlsIndicator ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      'button',
+      { className: 'sideBarController-button', onClick: function onClick() {
+          return showBoxesControl();
+        } },
+      'show boxes control'
+    ) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      'button',
+      { className: 'sideBarController-button', onClick: function onClick() {
+          return hideBoxesControl();
+        } },
+      'hide boxes control'
     ),
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       'button',
@@ -42978,10 +43024,13 @@ function SideBarController(_ref) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createStructuredSelector"])({
-  hideBoxesIndicator: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_4__["hideBoxes"]
+  hideBoxesIndicator: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_4__["hideBoxes"],
+  hideBoxesControlsIndicator: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_4__["hideBoxesControls"]
 }), {
   showBoxes: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["showBoxes"],
   hideBoxes: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["hideBoxes"],
+  hideBoxesControl: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["hideBoxesControl"],
+  showBoxesControl: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["showBoxesControl"],
   createBox: ui_Box_BoxActions__WEBPACK_IMPORTED_MODULE_3__["createBox"],
   serializeBoxs: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["serializeBoxs"],
   saveBoxesAsPicture: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["saveBoxesAsPicture"]
