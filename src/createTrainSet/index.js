@@ -22,14 +22,22 @@ function appenedAsync (path, data) {
         count++;
         if (count <= 2) continue;
         let numberOfVariant = 0;
+
         for (var x = -2; x < 3; x++)
         for (var k = -2; k < 3; k++) {
+        // for (var x = -1; x < 0; x++)
+        // for (var k = -1; k < 0; k++) {
           const fileName = `${count - 2}_${numberOfVariant++}.png`;
+          const realCount = count - 2;
+          const realCount2 = count - 3;
+
+
+
           await allCards.clone()
             .crop(j * 83 + (3 + x), i * 115 + (5 + k), 18, 45)
             .write(path.resolve(__dirname, '../detector/data', fileName));
-            await appenedAsync(path.resolve(__dirname, '../detector/labels_test.csv'), `${fileName};${count - 2}\n`);
-            await appenedAsync(path.resolve(__dirname, '../detector/labels_train.csv'), `${fileName};${count - 2}\n`);
+            await appenedAsync(path.resolve(__dirname, '../detector/labels_test.csv'), `${fileName};${realCount2}\n`);
+            await appenedAsync(path.resolve(__dirname, '../detector/labels_train.csv'), `${fileName};${realCount2}\n`);
 
         }
       }

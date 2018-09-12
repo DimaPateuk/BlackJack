@@ -27,6 +27,7 @@ module.exports = {
   resolve: {
     alias: {
 			ui: __dirname,
+      store: path.join(__dirname, 'store'),
 		},
 		extensions: ['.js', '.jsx'],
   },

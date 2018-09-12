@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "14e69d6bf2bcc2b313bd";
+/******/ 	var hotCurrentHash = "e674d5d5b03f421e7df2";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -43067,6 +43067,47 @@ var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({});
 
 /***/ }),
 
+/***/ "./ui/electronReceiveMessagesService.js":
+/*!**********************************************!*\
+  !*** ./ui/electronReceiveMessagesService.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var ui_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ui/store */ "./ui/store.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var ipcRenderer = window.ipcRenderer || {
+  on: function on() {}
+};
+
+var cardIndex = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'D', 'K'];
+
+var cardSuit = ['spade', 'heart', 'club', 'diamond'];
+
+var ElectronReceiveMessagesService = function ElectronReceiveMessagesService() {
+  _classCallCheck(this, ElectronReceiveMessagesService);
+
+  this.predictionDoneHandler = function (predictionResult, data) {
+    data.forEach(function (_ref) {
+      var prediction = _ref.prediction;
+
+      var lable = cardIndex[prediction % 13] + '_' + cardSuit[Math.floor(prediction / 14)];
+      alert(lable);
+    });
+  };
+
+  ipcRenderer.on('prediction-done', this.predictionDoneHandler);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (new ElectronReceiveMessagesService());
+
+/***/ }),
+
 /***/ "./ui/index.js":
 /*!*********************!*\
   !*** ./ui/index.js ***!
@@ -43083,6 +43124,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./ui/store.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App */ "./ui/App/index.jsx");
+/* harmony import */ var _electronReceiveMessagesService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./electronReceiveMessagesService */ "./ui/electronReceiveMessagesService.js");
+
+
 
 
 

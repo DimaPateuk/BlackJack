@@ -1,12 +1,14 @@
 const path = require('path');
 const fs = require('fs');
 const { app, BrowserWindow, ipcMain  } = require('electron');
-const PredictionService = require('./PredictionService');
 
 
 let mainWindow
 
-function createWindow () {
+async function createWindow () {
+  const PredictionService = require('./PredictionService');
+
+  await PredictionService.donePromise;
 
   mainWindow = new BrowserWindow({
     width: 800,
@@ -33,6 +35,8 @@ function createWindow () {
 
     PredictionService.init({
       winX, winY, boxes
+    }).then((predictionResult) => {
+      mainWindow.webContents.send('prediction-done', predictionResult);
     });
 
   });

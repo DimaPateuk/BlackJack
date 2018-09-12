@@ -36,11 +36,17 @@ async function init ({ winX, winY, boxes }) {
   const cordinates = createCordinates({ winX, winY, boxes });
   await saveImages(screen, cordinates);
   const detector = await detectorPromise;
+  const result = [];
   for (let i = 0; i < cordinates.length; i++) {
-    const { pathToFile } = cordinates[i];
-    const prediction = await detector.predict(pathToFile)
-    fs.writeFile(path.resolve(__dirname, pathToFile + '.prediction'), JSON.stringify(prediction));
+    const { pathToFile, id } = cordinates[i];
+    const prediction = await detector.predict(pathToFile);
+    result.push({
+      prediction,
+      id
+    });
   }
+
+  return result;
 }
 
-module.exports = { init: init };
+module.exports = { init: init, donePromise: detectorPromise };

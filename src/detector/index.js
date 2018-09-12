@@ -107,8 +107,9 @@ function error(predicted, expected) {
 }
 
 module.exports = async function createClassifier() {
+
   await loadData();
-  var classifier = new SVM(options);
+  classifier = new SVM(options);
   classifier.train(K_train, Y_train);
   test(classifier);
   fs.writeFileSync(
@@ -124,7 +125,6 @@ module.exports = async function createClassifier() {
     return kernel
         .compute([descriptor, ...range(0, X_train.length - 1)], X_train)
         .addColumn(0, range(1, X_test.length + 1))[0];
-
   }
 
   return {
