@@ -36,7 +36,9 @@ async function createWindow () {
     PredictionService.init({
       winX, winY, boxes
     }).then((predictionResult) => {
-      mainWindow.webContents.send('prediction-done', predictionResult);
+      mainWindow.webContents.send('prediction-done', {
+        predictionResult
+      });
     });
 
   });

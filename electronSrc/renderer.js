@@ -1,6 +1,6 @@
-const { ipcRenderer } = require('electron');
-
+const { ipcRenderer, remote } = require('electron');
 window.ipcRenderer = ipcRenderer;
+window.remote = remote;
 
 
 try {

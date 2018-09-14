@@ -1,4 +1,5 @@
 import store from 'ui/store';
+import { predictionDone } from 'ui/DetectedResult/DetectedResultAction'
 
 const ipcRenderer = window.ipcRenderer || {
   on: () => {},
@@ -21,12 +22,16 @@ class ElectronReceiveMessagesService {
     ipcRenderer.on('prediction-done', this.predictionDoneHandler);
   }
 
-  predictionDoneHandler = (predictionResult, data) => {
-    data.forEach(({prediction}) => {
+  predictionDoneHandler = (e, data) => {
+    const { predictionResult }= data;
+    const result = predictionResult.map(({ prediction }) => {
       const lable = `${cardIndex[prediction % 13]}_${cardSuit[Math.floor(prediction / 14)]}`;
-      alert(lable);
 
-    })
+      return lable;
+    });
+
+    store.dispatch(predictionDone({ predictionResult: result}))
+
   }
 }
 

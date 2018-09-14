@@ -10,13 +10,13 @@ var bundler = webpack(webpackConfig, (err, stats) => {
   if (err || stats.hasErrors()) {
     console.log('--------error');
     console.log(err);
-    console.log(stats);
+    console.log(stats.toString());
     console.log('--------error');
     return;
   }
 
   console.log('--------info');
-  console.log(stats);
+  console.log(stats.toString());
   console.log('--------info');
 
 });

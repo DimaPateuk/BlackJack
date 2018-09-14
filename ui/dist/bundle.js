@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "e674d5d5b03f421e7df2";
+/******/ 	var hotCurrentHash = "0f1fdc15652d0b11db29";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1014,6 +1014,25 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 // module
 exports.push([module.i, ".box {\n  border: 1px solid black;\n  position: absolute; }\n\n.box-size-controlle {\n  position: absolute;\n  top: 100%;\n  right: 0;\n  width: 15%;\n  height: 15%;\n  background: black;\n  transform: translateY(-100%); }\n\n.box-remove-button {\n  position: absolute;\n  top: 0;\n  right: 0; }\n\n.box-clone-button {\n  position: absolute;\n  top: 0;\n  right: 0;\n  transform: translateY(100%); }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./ui/DetectedResult/DetectedResult.scss":
+/*!******************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./ui/DetectedResult/DetectedResult.scss ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".detectedResult {\n  background: white; }\n\n.detectedResult-item {\n  display: block; }\n", ""]);
 
 // exports
 
@@ -42833,6 +42852,207 @@ function BoxesArea(_ref) {
 
 /***/ }),
 
+/***/ "./ui/DetectedResult/DetectedResult.scss":
+/*!***********************************************!*\
+  !*** ./ui/DetectedResult/DetectedResult.scss ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js!./DetectedResult.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./ui/DetectedResult/DetectedResult.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js!./DetectedResult.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./ui/DetectedResult/DetectedResult.scss", function() {
+		var newContent = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js!./DetectedResult.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./ui/DetectedResult/DetectedResult.scss");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./ui/DetectedResult/DetectedResultAction.js":
+/*!***************************************************!*\
+  !*** ./ui/DetectedResult/DetectedResultAction.js ***!
+  \***************************************************/
+/*! exports provided: predictionDone */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "predictionDone", function() { return predictionDone; });
+function predictionDone(payload) {
+  return {
+    type: 'predictionDone',
+    payload: payload
+  };
+}
+
+/***/ }),
+
+/***/ "./ui/DetectedResult/DetectedResultReducer.js":
+/*!****************************************************!*\
+  !*** ./ui/DetectedResult/DetectedResultReducer.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immutable */ "./node_modules/immutable/dist/immutable.js");
+/* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(immutable__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({
+	prediction: []
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	var action = arguments[1];
+
+	switch (action.type) {
+
+		case 'predictionDone':
+			{
+				var predictionResult = action.payload.predictionResult;
+
+				return state.set('prediction', Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])(predictionResult));
+			}
+
+		default:
+			{
+				return state;
+			}
+	}
+});
+
+/***/ }),
+
+/***/ "./ui/DetectedResult/DetectedResultSelectors.js":
+/*!******************************************************!*\
+  !*** ./ui/DetectedResult/DetectedResultSelectors.js ***!
+  \******************************************************/
+/*! exports provided: prediction, mapStateToProps */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "prediction", function() { return prediction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapStateToProps", function() { return mapStateToProps; });
+/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
+/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(reselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ui/Box/BoxSelectors */ "./ui/Box/BoxSelectors.js");
+
+
+
+
+function prediction(state) {
+  return state.getIn(['detectedResult', 'prediction']);
+}
+
+var mapStateToProps = Object(reselect__WEBPACK_IMPORTED_MODULE_0__["createStructuredSelector"])({
+  prediction: prediction,
+  boxes: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_1__["boxes"]
+});
+
+/***/ }),
+
+/***/ "./ui/DetectedResult/index.jsx":
+/*!*************************************!*\
+  !*** ./ui/DetectedResult/index.jsx ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _DetectedResultSelectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DetectedResultSelectors */ "./ui/DetectedResult/DetectedResultSelectors.js");
+/* harmony import */ var _DetectedResult_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DetectedResult.scss */ "./ui/DetectedResult/DetectedResult.scss");
+/* harmony import */ var _DetectedResult_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_DetectedResult_scss__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+function DetectedResult(_ref) {
+  var prediction = _ref.prediction,
+      boxes = _ref.boxes;
+
+  console.log(prediction.toJS());
+  var result = void 0;
+  if (!prediction.count()) {
+    result = boxes.reduce(function (res, box) {
+      res.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        'span',
+        { className: 'detectedResult-item' },
+        box.get('id')
+      ));
+
+      return res;
+    }, []);
+  } else {
+    result = prediction.reduce(function (res, lable) {
+      res.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        'span',
+        { className: 'detectedResult-item' },
+        lable
+      ));
+
+      return res;
+    }, []);
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+    'section',
+    { className: 'detectedResult' },
+    result
+  );
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(_DetectedResultSelectors__WEBPACK_IMPORTED_MODULE_2__["mapStateToProps"])(DetectedResult));
+
+/***/ }),
+
 /***/ "./ui/SideBarController/SideBarController.scss":
 /*!*****************************************************!*\
   !*** ./ui/SideBarController/SideBarController.scss ***!
@@ -42944,11 +43164,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 /* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(reselect__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ui_Box_BoxActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ui/Box/BoxActions */ "./ui/Box/BoxActions.js");
-/* harmony import */ var ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ui/Box/BoxSelectors */ "./ui/Box/BoxSelectors.js");
+/* harmony import */ var ui_DetectedResult__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ui/DetectedResult */ "./ui/DetectedResult/index.jsx");
+/* harmony import */ var ui_Box_BoxActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ui/Box/BoxActions */ "./ui/Box/BoxActions.js");
 /* harmony import */ var ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ui/SideBarController/SideBarControllerActions */ "./ui/SideBarController/SideBarControllerActions.js");
-/* harmony import */ var _SideBarController_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SideBarController.scss */ "./ui/SideBarController/SideBarController.scss");
-/* harmony import */ var _SideBarController_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_SideBarController_scss__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ui/Box/BoxSelectors */ "./ui/Box/BoxSelectors.js");
+/* harmony import */ var _SideBarController_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SideBarController.scss */ "./ui/SideBarController/SideBarController.scss");
+/* harmony import */ var _SideBarController_scss__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_SideBarController_scss__WEBPACK_IMPORTED_MODULE_7__);
+
+
+
 
 
 
@@ -42973,6 +43197,30 @@ function SideBarController(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
     'section',
     { className: 'sideBarController' },
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      'button',
+      { className: 'sideBarController-button', onClick: function onClick() {
+          if (!remote) {
+            return;
+          }
+
+          var w = remote.getCurrentWindow();
+          w.close();
+        } },
+      'CLOSE'
+    ),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      'button',
+      { className: 'sideBarController-button', onClick: function onClick() {
+          if (!remote) {
+            return;
+          }
+
+          var w = remote.getCurrentWindow();
+          w.toggleDevTools();
+        } },
+      'TOGGLE DEV TOOLS'
+    ),
     hideBoxesIndicator ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       'button',
       { className: 'sideBarController-button', onClick: function onClick() {
@@ -43019,19 +43267,20 @@ function SideBarController(_ref) {
           return saveBoxesAsPicture();
         } },
       'save boxes as picture'
-    )
+    ),
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ui_DetectedResult__WEBPACK_IMPORTED_MODULE_3__["default"], null)
   );
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(Object(reselect__WEBPACK_IMPORTED_MODULE_2__["createStructuredSelector"])({
-  hideBoxesIndicator: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_4__["hideBoxes"],
-  hideBoxesControlsIndicator: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_4__["hideBoxesControls"]
+  hideBoxesIndicator: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_6__["hideBoxes"],
+  hideBoxesControlsIndicator: ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_6__["hideBoxesControls"]
 }), {
   showBoxes: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["showBoxes"],
   hideBoxes: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["hideBoxes"],
   hideBoxesControl: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["hideBoxesControl"],
   showBoxesControl: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["showBoxesControl"],
-  createBox: ui_Box_BoxActions__WEBPACK_IMPORTED_MODULE_3__["createBox"],
+  createBox: ui_Box_BoxActions__WEBPACK_IMPORTED_MODULE_4__["createBox"],
   serializeBoxs: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["serializeBoxs"],
   saveBoxesAsPicture: ui_SideBarController_SideBarControllerActions__WEBPACK_IMPORTED_MODULE_5__["saveBoxesAsPicture"]
 })(SideBarController));
@@ -43077,7 +43326,9 @@ var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({});
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ui_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ui/store */ "./ui/store.js");
+/* harmony import */ var ui_DetectedResult_DetectedResultAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ui/DetectedResult/DetectedResultAction */ "./ui/DetectedResult/DetectedResultAction.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -43092,13 +43343,18 @@ var cardSuit = ['spade', 'heart', 'club', 'diamond'];
 var ElectronReceiveMessagesService = function ElectronReceiveMessagesService() {
   _classCallCheck(this, ElectronReceiveMessagesService);
 
-  this.predictionDoneHandler = function (predictionResult, data) {
-    data.forEach(function (_ref) {
+  this.predictionDoneHandler = function (e, data) {
+    var predictionResult = data.predictionResult;
+
+    var result = predictionResult.map(function (_ref) {
       var prediction = _ref.prediction;
 
       var lable = cardIndex[prediction % 13] + '_' + cardSuit[Math.floor(prediction / 14)];
-      alert(lable);
+
+      return lable;
     });
+
+    ui_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(Object(ui_DetectedResult_DetectedResultAction__WEBPACK_IMPORTED_MODULE_1__["predictionDone"])({ predictionResult: result }));
   };
 
   ipcRenderer.on('prediction-done', this.predictionDoneHandler);
@@ -43166,19 +43422,19 @@ var ipcRenderer = window.ipcRenderer || {
           {
             var state = store.getState();
 
-            ipcRenderer.send('serialize-boxes', Object(ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__["boxes"])(state).toJS());
+            return ipcRenderer.send('serialize-boxes', Object(ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__["boxes"])(state).toJS());
           }
 
         case 'save-boxes-as-picture':
           {
             var _state = store.getState();
 
-            ipcRenderer.send('save-boxes-as-picture', Object(ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__["boxes"])(_state).toJS());
+            return ipcRenderer.send('save-boxes-as-picture', Object(ui_Box_BoxSelectors__WEBPACK_IMPORTED_MODULE_0__["boxes"])(_state).toJS());
           }
 
         default:
           {
-            next(action);
+            return next(action);
           }
       }
     };
@@ -43218,6 +43474,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_immutable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux_immutable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var ui_app_AppReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ui/app/AppReducer */ "./ui/app/AppReducer.js");
 /* harmony import */ var ui_Box_BoxReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ui/Box/BoxReducer */ "./ui/Box/BoxReducer.js");
+/* harmony import */ var ui_DetectedResult_DetectedResultReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ui/DetectedResult/DetectedResultReducer */ "./ui/DetectedResult/DetectedResultReducer.js");
+
 
 
 
@@ -43225,7 +43483,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux_immutable__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
 	app: ui_app_AppReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-	box: ui_Box_BoxReducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+	box: ui_Box_BoxReducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+	detectedResult: ui_DetectedResult_DetectedResultReducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 }));
 
 /***/ }),
