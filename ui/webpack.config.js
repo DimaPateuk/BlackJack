@@ -28,8 +28,9 @@ module.exports = {
     alias: {
 			ui: __dirname,
       store: path.join(__dirname, 'store'),
+      detector: path.join(__dirname, '../src/detector'),
 		},
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx', '.json'],
   },
   plugins: [
     new HtmlWebpackPlugin(),

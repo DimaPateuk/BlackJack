@@ -5,7 +5,8 @@
   "scripts": {
     "start": "gulp",
     "start-electron": "electron ./electronSrc/main.js",
-    "start-ui": "webpack-dev-server --config ./ui/webpack.config.js --env.dev-server --progress"
+    "start-ui": "webpack-dev-server --config ./ui/webpack.config.js --env.dev-server --progress",
+    "train-set": "node src/createTrainSet"
   },
   "repository": {
     "type": "git",

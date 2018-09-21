@@ -1,6 +1,7 @@
 import store from 'ui/store';
 import { predictionDone } from 'ui/DetectedResult/DetectedResultAction'
-
+import lablesMap from 'detector/lablesMap';
+console.log(lablesMap);
 const ipcRenderer = window.ipcRenderer || {
   on: () => {},
 };
@@ -25,7 +26,7 @@ class ElectronReceiveMessagesService {
   predictionDoneHandler = (e, data) => {
     const { predictionResult }= data;
     const result = predictionResult.map(({ prediction }) => {
-      const lable = `${cardIndex[prediction % 13]}_${cardSuit[Math.floor(prediction / 14)]}`;
+      const lable = `${prediction} ${lablesMap[prediction]}`;
 
       return lable;
     });
