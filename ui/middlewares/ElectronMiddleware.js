@@ -15,7 +15,7 @@ export default (store) => (next) => (action) => {
 
     case 'save-boxes-as-picture': {
       const state = store.getState();
-
+      console.log(1111111, boxes(state).toJS());
       return ipcRenderer.send('save-boxes-as-picture', boxes(state).toJS());
     }
 

@@ -9,18 +9,19 @@ function DetectedResult ({ prediction, boxes }) {
   let result;
   if (!prediction.count()) {
     result = boxes.reduce((res, box) => {
+      const id = box.get('id');
       res.push(
-        (<span className="detectedResult-item">{box.get('id')}</span>)
+        (<span className="detectedResult-item" key={id}>{id}</span>)
       );
-      
+
       return res;
     }, []);
   } else {
-    result = prediction.reduce((res, lable) => {
+    result = prediction.reduce((res, lable, index) => {
       res.push(
-        (<span className="detectedResult-item">{lable}</span>)
+        (<span className="detectedResult-item" key={index}>{lable}</span>)
       );
-      
+
       return res;
     }, []);
   }

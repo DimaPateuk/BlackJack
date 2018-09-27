@@ -12,7 +12,7 @@ function screenCaptureToJimp(robotScreenPic) {
         image.bitmap.data[idx + 0] = robotScreenPic.image.readUInt8(pos++);
         image.bitmap.data[idx + 3] = robotScreenPic.image.readUInt8(pos++);
       });
-      resolve(image);
+      resolve(image.greyscale());
     } catch (e) {
       console.error(e);
       reject(e);

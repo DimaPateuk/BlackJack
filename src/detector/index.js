@@ -100,6 +100,7 @@ function error(predicted, expected) {
       }`
     );
     if (predicted[index] != expected[index]) {
+      console.log(predicted[index], expected[index])
       misclassifications++;
     }
   }
@@ -109,8 +110,18 @@ function error(predicted, expected) {
 module.exports = async function createClassifier() {
 
   await loadData();
-  classifier = new SVM(options);
-  classifier.train(K_train, Y_train);
+  if (0) {
+
+    // var t = fs.readFileSync(path.join(__dirname, 'serialized.txt'));
+    //
+    // var res = t.toString("utf8", 0, t.length)
+
+    classifier = SVM.load(path.join(__dirname, 'serialized.txt'));
+  } else {
+    classifier = new SVM(options);
+    classifier.train(K_train, Y_train);
+  }
+
   test(classifier);
   fs.writeFileSync(
     path.join(__dirname, 'serialized.txt'),

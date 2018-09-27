@@ -24,13 +24,13 @@ class ElectronReceiveMessagesService {
   }
 
   predictionDoneHandler = (e, data) => {
-    const { predictionResult }= data;
+    const { predictionResult } = data;
     const result = predictionResult.map(({ prediction }) => {
       const lable = `${prediction} ${lablesMap[prediction]}`;
 
       return lable;
     });
-
+    console.log(result);
     store.dispatch(predictionDone({ predictionResult: result}))
 
   }
