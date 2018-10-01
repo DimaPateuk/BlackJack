@@ -33,7 +33,7 @@ var numbrs = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
 (async function () {
   const lablesMap = {};
-  let count = 0;
+  let count = 1;
   const allCards = await Jimp.read(path.resolve(__dirname, '../all_cards.png'));
   const allNumbers = await Jimp.read(path.resolve(__dirname, '../all_numbers.png'));
   const nothing1 = await Jimp.read(path.resolve(__dirname, '../nothing1.png'));
