@@ -83,7 +83,7 @@ var numbrs = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     //       lablesMap[count] = `${currentCardSuit} ${currentCardIndex}`;
     //       await allCards.clone()
     //         .crop(j * 83 + (3 + x), i * 115 + (5 + k), 18, 45)
-    //         .dither565()
+    //         .greyscale()
     //         .write(path.resolve(__dirname, '../detector/data', fileName));
     //         await appenedAsync(path.resolve(__dirname, '../detector/labels_test.csv'), `${fileName};${count}\n`);
     //         await appenedAsync(path.resolve(__dirname, '../detector/labels_train.csv'), `${fileName};${count}\n`);
@@ -101,19 +101,19 @@ var numbrs = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
       for (var j = 0; j < 5; j++) {
         const numberLable = numbrsLables.shift();
         let numberOfVariant = 0;
-        for (var x = -3; x < 4; x++)
-        for (var k = -3; k < 4; k++) {
-        // for (var x = 0; x < 1; x++)
-        // for (var k = 0; k < 1; k++) {
+        // for (var x = -10; x < 11; x++)
+        // for (var k = -10; k < 11; k++) {
+        for (var x = 0; x < 1; x++)
+        for (var k = 0; k < 1; k++) {
+        // for (var x = -1; x < 1; x++)
+        // for (var k = -1; k < 1; k++) {
           const fileName = `${count}_${numberOfVariant++}.png`;
           lablesMap[count] = numberLable;
 
 
-          var im = await allNumbers.clone().crop(x + 55 + j * 98, k + 30 + i * 140, 100, 150);
+          var im = await allNumbers.clone().crop(x + 54 + j * 98, k + 30 + i * 140, 100, 150);
 
-
-
-          await im.dither565().write(path.resolve(__dirname, '../detector/data', fileName));
+          await im.greyscale().write(path.resolve(__dirname, '../detector/data', fileName));
           await appenedAsync(path.resolve(__dirname, '../detector/labels_test.csv'), `${fileName};${count}\n`);
 
           await appenedAsync(path.resolve(__dirname, '../detector/labels_train.csv'), `${fileName};${count}\n`);

@@ -3,7 +3,7 @@ const fs = require('fs');
 const { app, BrowserWindow, ipcMain  } = require('electron');
 
 
-let mainWindow
+let mainWindow;
 
 async function createWindow () {
   const PredictionService = require('./PredictionService');

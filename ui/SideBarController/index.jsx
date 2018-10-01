@@ -11,6 +11,8 @@ import { hideBoxes as hideBoxesIndicator, hideBoxesControls as hideBoxesControls
 
 import SideBarControllerStyle from './SideBarController.scss';
 
+var intervalIndecator;
+
 function SideBarController ({ createBox, serializeBoxs, saveBoxesAsPicture, hideBoxes, showBoxes, hideBoxesIndicator, hideBoxesControlsIndicator, hideBoxesControl, showBoxesControl }) {
   return (
     <section className="sideBarController">
@@ -40,7 +42,28 @@ function SideBarController ({ createBox, serializeBoxs, saveBoxesAsPicture, hide
       }
       <button className="sideBarController-button" onClick={() => createBox()}>add box</button>
       <button className="sideBarController-button" onClick={() => serializeBoxs()}>serialize boxs</button>
-      <button className="sideBarController-button" onClick={() => saveBoxesAsPicture()}>save boxes as picture</button>
+      <button className="sideBarController-button" onClick={() => {
+        saveBoxesAsPicture();
+        // if (!intervalIndecator){
+        //   intervalIndecator = setInterval(async () => {
+        //     if (hideBoxesIndicator) {
+        //       saveBoxesAsPicture();
+        //     } else {
+        //       hideBoxes();
+        //       await new Promise(res => setTimeout(res, 300));
+        //       saveBoxesAsPicture();
+        //       showBoxes();
+        //     }
+        //   }, 1000);
+        // } else {
+        //   clearInterval(intervalIndecator);
+        //   intervalIndecator = null;
+        // }
+
+
+
+
+      }}>save boxes as picture</button>
 
       <DetectedResult />
     </section>
